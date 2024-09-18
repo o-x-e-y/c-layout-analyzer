@@ -98,7 +98,7 @@ void layout_info(analyzer_t* analyzer, char* path) {
 }
 
 void print_usage(const char *program_name) {
-    fprintf(stderr, "Usage: %s [-h] [-l layout]\n", program_name);
+    fprintf(stderr, "Usage: %s [-h] [-l layout] [-r]\n", program_name);
     fprintf(stderr, "Options:\n");
     fprintf(stderr, "  -h           Display this help message\n");
     fprintf(stderr, "  -l path      Shows information about a layout\n");

@@ -7,8 +7,8 @@ at this point, but valgrind is telling me it's about 3000 bytes total. I'm willi
 
 First, build the program with `make br`. Then, you can use it as follows:
 
-```
-Usage: ./build/c-analyzer [-h] [-l layout]
+```txt
+Usage: ./build/c-analyzer [-h] [-l layout] [-r]
 Options:\n
   -h           Display this help message
   -l path      Shows information about a layout
