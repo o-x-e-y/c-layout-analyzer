@@ -1,14 +1,13 @@
 # C keyboard layout analyzer
 
 Tiny little analyzer written in C, using my own vector and string implementations. Leaks some memory
-at this point, but valgrind is telling me it's about 3000 bytes total. I'm willing to accept that
-L.
+at this point, but valgrind is telling me it's about 3000 bytes total. I'm willing to take that L.
 
 ## Usage
 
 First, build the program with `make br`. Then, you can use it as follows:
 
-```bash
+```
 Usage: ./build/c-analyzer [-h] [-l layout]
 Options:\n
   -h           Display this help message
