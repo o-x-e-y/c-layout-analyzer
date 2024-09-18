@@ -2,7 +2,7 @@
 
 Tiny little analyzer written in C, using my own vector and string implementations. Leaks some memory
 at this point, but valgrind is telling me it's about 3000 bytes total. I'm willing to accept that
-loss at this point.
+L.
 
 ## Usage
 
