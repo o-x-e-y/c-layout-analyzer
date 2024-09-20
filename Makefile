@@ -32,7 +32,7 @@ release: $(src_files)
 
 .PHONY: valgrind
 valgrind: $(exec-path)
-	valgrind $(valgrind-flags) $(exec-path)
+	valgrind $(valgrind-flags) $(exec-path) $(ARGS)
 
 .PHONY: fmt
 fmt:

@@ -21,8 +21,8 @@ Vec new_vec(size_t item_capacity, size_t elem_size) {
 }
 
 void free_vec(Vec* vec, void elem_destructor(void*)) {
-    if (vec) {
-        if (elem_destructor) {
+    if (vec != NULL) {
+        if (elem_destructor != NULL) {
             for (void* ptr = vec->ptr; ptr < vec->ptr + vec->capacity; ptr += vec->elem_size) {
                 elem_destructor(ptr);
             }

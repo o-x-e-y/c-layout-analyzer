@@ -4,13 +4,13 @@
 #include <string.h>
 
 #include "headers/analyzer.h"
+#include "headers/cli.h"
 #include "headers/data.h"
 #include "headers/vec.h"
-#include "headers/cli.h"
 
 int main(int argc, char** argv) {
     cli(argc, argv);
-    
+
     // char* path = "./corpora/monkeyracer.txt";
 
     // String mr = read_file(path);
@@ -29,7 +29,7 @@ int main(int argc, char** argv) {
     // analyzer_t analyzer = new_analyzer(&d);
 
     // Vec layouts = load_layouts_from_path(&analyzer, "./layouts/");
-    
+
     // Iter layout_iter = iter_from_vec(&layouts);
 
     // layout_t* layout;

@@ -1,6 +1,4 @@
 #include "headers/data.h"
-#include "headers/string.h"
-#include "headers/util.h"
 
 #include <assert.h>
 #include <ctype.h>
@@ -9,6 +7,8 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include "headers/string.h"
+#include "headers/util.h"
 
 data_t generate_data(char* str, char* include_chars, char* language) {
     double* chars = calloc(128, sizeof(double));
@@ -43,7 +43,7 @@ data_t generate_data(char* str, char* include_chars, char* language) {
                 if (include[c3]) {
                     chars[c3]++;
                     total_chars++;
-                    
+
                     if (include[c2]) {
                         bigrams[c2 * 128 + c3]++;
                         total_bigrams++;
@@ -51,7 +51,6 @@ data_t generate_data(char* str, char* include_chars, char* language) {
                         skipgrams[c1 * 128 + c3]++;
                         total_skipgrams++;
                     }
-
                 }
 
                 c1 = c2;
@@ -66,9 +65,6 @@ data_t generate_data(char* str, char* include_chars, char* language) {
 
     for (size_t i = 0; i < 128 * 128; ++i) {
         bigrams[i] /= (double)total_bigrams;
-    }
-
-    for (size_t i = 0; i < 128 * 128; ++i) {
         skipgrams[i] /= (double)total_skipgrams;
     }
 
@@ -76,7 +72,8 @@ data_t generate_data(char* str, char* include_chars, char* language) {
     char* lang_alloc = malloc((lang_len + 1) * sizeof(char));
     strncpy(lang_alloc, language, lang_len + 1);
 
-    return (data_t){.language = lang_alloc, .chars = chars, .bigrams = bigrams, .skipgrams = skipgrams};
+    return (data_t){
+        .language = lang_alloc, .chars = chars, .bigrams = bigrams, .skipgrams = skipgrams};
 }
 
 data_t load_data(char* path, char* language) {
@@ -152,7 +149,8 @@ data_t load_data(char* path, char* language) {
 
     free_str(&content);
 
-    return (data_t){.language = lang_alloc, .chars = chars, .bigrams = bigrams, .skipgrams = skipgrams};
+    return (data_t){
+        .language = lang_alloc, .chars = chars, .bigrams = bigrams, .skipgrams = skipgrams};
 }
 
 void save_data(data_t* data, char* folder) {
@@ -212,13 +210,11 @@ void save_data(data_t* data, char* folder) {
         fclose(fp);
 
         printf("saved data at: %s\n", path.str);
-
-        free_str(&path);
     } else {
         printf("Couldn't save data due to a faulty file pointer");
-
-        free_str(&path);
     }
+
+    free_str(&path);
 }
 
 void free_data(data_t* data) {
@@ -230,7 +226,7 @@ void free_data(data_t* data) {
         if (data->bigrams) {
             free(data->bigrams);
         }
-        
+
         if (data->skipgrams) {
             free(data->skipgrams);
         }

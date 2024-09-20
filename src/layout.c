@@ -1,11 +1,11 @@
 #include "headers/layout.h"
-#include "headers/util.h"
 
 #include <assert.h>
+#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <stdio.h>
 
+#include "headers/util.h"
 
 layout_t new_layout(char chars[LAYOUT_CHARS], char* name) {
     assert(name != NULL);
@@ -48,7 +48,12 @@ layout_t load_layout(char* path) {
         push_str(&name, c);
     }
 
-    return new_layout(layout.str, reverse_str(name).str);
+    layout_t res = new_layout(layout.str, reverse_str(name).str);
+
+    free_str(&layout);
+    free_str(&name);
+
+    return res;
 }
 
 void free_layout(layout_t* layout) {

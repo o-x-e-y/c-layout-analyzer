@@ -1,10 +1,10 @@
 #ifndef __OXEY_REPL_H
 #define __OXEY_REPL_H
 
-#include <stdio.h>
-#include <stddef.h>
-#include <unistd.h>
 #include <getopt.h>
+#include <stddef.h>
+#include <stdio.h>
+#include <unistd.h>
 
 int cli(int argc, char** argv);
 

@@ -1,10 +1,11 @@
-#include "string.h"
-
-#include "headers/analyzer.h"
 #include "headers/cli.h"
 
-void print_usage(const char *program_name);
-void layout_info(analyzer_t* analyzer, char* path);
+#include "headers/analyzer.h"
+#include "string.h"
+
+void print_usage(const char* program_name);
+void print_layout_info(analyzer_t* analyzer, char* path);
+size_t longest_layout_name(Vec* layouts);
 
 void __free_layout(void* ptr) {
     layout_t* layout = (layout_t*)ptr;
@@ -12,28 +13,12 @@ void __free_layout(void* ptr) {
     free_layout(layout);
 }
 
-size_t longest_layout_name(Vec* layouts) {
-    layout_t* layout;
-    size_t len = 0;
-    size_t longest = 0;
-
-    Iter layout_iter = iter_from_vec(layouts);
-
-    while ((layout = iter_next(&layout_iter))) {
-        len = strlen(layout->name);
-        if (len > longest)
-            longest = len;
-    }
-
-    return longest;
-}
-
 int cli(int argc, char** argv) {
     if (argc == 1) {
         print_usage(argv[0]);
         return -1;
     }
-    
+
     data_t d = load_data("./data/shai.data", "shai");
     analyzer_t analyzer = new_analyzer(&d);
 
@@ -67,7 +52,7 @@ int cli(int argc, char** argv) {
                     for (size_t i = name_len; i < longest_name; ++i) {
                         printf(" ");
                     }
-                    
+
                     double sfbs_c = sfbs(&analyzer, layout) * 100.0;
                     double sfs_c = sfs(&analyzer, layout) * 100.0;
 
@@ -83,21 +68,13 @@ int cli(int argc, char** argv) {
         }
     }
     if (layout_path) {
-        layout_info(&analyzer, layout_path);
+        print_layout_info(&analyzer, layout_path);
     }
 
     free_analyzer(&analyzer);
 }
 
-void layout_info(analyzer_t* analyzer, char* path) {
-    layout_t layout = load_layout(path);
-
-    print_layout(&layout);
-    printf("sfbs: %f%%\n", sfbs(analyzer, &layout) * 100.0);
-    printf("sfs:  %f%%\n\n", sfs(analyzer, &layout) * 100.0);
-}
-
-void print_usage(const char *program_name) {
+void print_usage(const char* program_name) {
     fprintf(stderr, "Usage: %s [-h] [-l layout] [-r]\n", program_name);
     fprintf(stderr, "Options:\n");
     fprintf(stderr, "  -h           Display this help message\n");
@@ -105,4 +82,27 @@ void print_usage(const char *program_name) {
     fprintf(stderr, "  -r           Ranks all layouts in './layouts', sorted by sfb\n");
     // fprintf(stderr, "  -f filename       Specify an input file\n");
     // fprintf(stderr, "  -n number         Specify a number\n");
+}
+
+void print_layout_info(analyzer_t* analyzer, char* path) {
+    layout_t layout = load_layout(path);
+
+    print_layout(&layout);
+    printf("sfbs: %f%%\n", sfbs(analyzer, &layout) * 100.0);
+    printf("sfs:  %f%%\n\n", sfs(analyzer, &layout) * 100.0);
+}
+
+size_t longest_layout_name(Vec* layouts) {
+    layout_t* layout;
+    size_t len = 0;
+    size_t longest = 0;
+
+    Iter layout_iter = iter_from_vec(layouts);
+
+    while ((layout = iter_next(&layout_iter))) {
+        len = strlen(layout->name);
+        if (len > longest) longest = len;
+    }
+
+    return longest;
 }

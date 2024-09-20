@@ -1,10 +1,11 @@
 #include "headers/analyzer.h"
-#include "headers/vec.h"
 
 #include <assert.h>
 #include <dirent.h>
 #include <stdlib.h>
 #include <string.h>
+
+#include "headers/vec.h"
 
 const static PosPair SFB_INDICES[48] = {
     (PosPair){.l = 0, .r = 10},  (PosPair){.l = 0, .r = 20},  (PosPair){.l = 10, .r = 20},
@@ -50,8 +51,8 @@ int __cmp_layouts(const void* layout1, const void* layout2) {
 }
 
 Vec load_layouts_from_path(analyzer_t* analyzer, char* path) {
-    DIR *dir;
-    struct dirent *ent;
+    DIR* dir;
+    struct dirent* ent;
     Vec layouts = new_vec(10, sizeof(layout_t));
 
     size_t path_len = strlen(path);
@@ -59,9 +60,8 @@ Vec load_layouts_from_path(analyzer_t* analyzer, char* path) {
     if ((dir = opendir(path)) != NULL) {
         while ((ent = readdir(dir)) != NULL) {
             int name_len = strlen(ent->d_name);
-            if (name_len < 3 || strncmp(&ent->d_name[name_len - 3], ".md", 3) == 0)
-                continue;
-            
+            if (name_len < 3 || strncmp(&ent->d_name[name_len - 3], ".md", 3) == 0) continue;
+
             String full_path = str_from(path, path_len);
 
             if (last_str(&full_path) != '\\' && last_str(&full_path) != '/') {
@@ -69,11 +69,11 @@ Vec load_layouts_from_path(analyzer_t* analyzer, char* path) {
             }
             push_str_str(&full_path, ent->d_name, strlen(ent->d_name));
 
-            layout_t layout = load_layout(full_path.str);
-            layout.name[name_len - 3] = '\0';
-            layout.score = sfbs(analyzer, &layout);
+            // layout_t layout = load_layout(full_path.str);
+            // layout.name[name_len - 3] = '\0';
+            // layout.score = sfbs(analyzer, &layout);
 
-            push_vec(&layouts, &layout);
+            // push_vec(&layouts, &layout);
         }
 
         closedir(dir);
