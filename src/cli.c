@@ -5,7 +5,7 @@
 
 void print_usage(const char* program_name);
 void print_layout_info(analyzer_t* analyzer, char* path);
-size_t longest_layout_name(Vec* layouts);
+size_t longest_layout_name(vec_t* layouts);
 
 void __free_layout(void* ptr) {
     layout_t* layout = (layout_t*)ptr;
@@ -36,11 +36,11 @@ int cli(int argc, char** argv) {
                 layout_path = optarg;
                 break;
             case 'r':
-                Vec layouts = load_layouts_from_path(&analyzer, "./layouts/");
+                vec_t layouts = load_layouts_from_path(&analyzer, "./layouts/");
 
                 size_t longest_name = longest_layout_name(&layouts);
 
-                Iter layout_iter = iter_from_vec(&layouts);
+                vec_iter_t layout_iter = iter_from_vec(&layouts);
 
                 layout_t* layout;
                 size_t name_len = 0;
@@ -92,12 +92,12 @@ void print_layout_info(analyzer_t* analyzer, char* path) {
     printf("sfs:  %f%%\n\n", sfs(analyzer, &layout) * 100.0);
 }
 
-size_t longest_layout_name(Vec* layouts) {
+size_t longest_layout_name(vec_t* layouts) {
     layout_t* layout;
     size_t len = 0;
     size_t longest = 0;
 
-    Iter layout_iter = iter_from_vec(layouts);
+    vec_iter_t layout_iter = iter_from_vec(layouts);
 
     while ((layout = iter_next(&layout_iter))) {
         len = strlen(layout->name);

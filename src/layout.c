@@ -30,8 +30,8 @@ layout_t new_layout(char chars[LAYOUT_CHARS], char* name) {
 layout_t load_layout(char* path) {
     assert(path != NULL);
 
-    String s = read_file(path);
-    String layout = new_str(31);
+    string_t s = read_file(path);
+    string_t layout = new_str(31);
 
     for (size_t i = 0; i < s.len; ++i) {
         char c = s.str[i];
@@ -40,7 +40,7 @@ layout_t load_layout(char* path) {
         }
     }
 
-    String name = new_str(15);
+    string_t name = new_str(15);
 
     for (size_t i = strlen(path) - 1; i >= 0; --i) {
         char c = path[i];

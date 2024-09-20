@@ -84,9 +84,9 @@ data_t load_data(char* path, char* language) {
     double* bigrams = calloc(128 * 128, sizeof(double));
     double* skipgrams = calloc(128 * 128, sizeof(double));
 
-    String content = read_file(path);
+    string_t content = read_file(path);
 
-    StrIter iter = iter_from_str(&content);
+    str_iter_t iter = iter_from_str(&content);
     char curr;
 
     while (str_iter_peek(&iter)) {
@@ -156,7 +156,7 @@ data_t load_data(char* path, char* language) {
 void save_data(data_t* data, char* folder) {
     assert(data != NULL);
 
-    String path;
+    string_t path;
     if (folder == NULL) {
         path = str_from("./", strlen("./"));
     } else {

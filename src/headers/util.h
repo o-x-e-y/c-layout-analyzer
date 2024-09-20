@@ -6,7 +6,7 @@
 #define MAX(v1, v2) v1 > v2 ? v1 : v2
 #define MIN(v1, v2) v1 < v2 ? v1 : v2
 
-String read_file(char* path);
+string_t read_file(char* path);
 void write_file(char* path, char* content);
 
 #endif

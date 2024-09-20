@@ -8,30 +8,30 @@
 
 #include "headers/util.h"
 
-static void __grow_str(String* str);
+static void __grow_str(string_t* str);
 
-String new_str(size_t item_capacity) {
-    return (String){
+string_t new_str(size_t item_capacity) {
+    return (string_t){
         .capacity = item_capacity,
         .len = 0,
         .str = malloc(item_capacity * sizeof(char)),
     };
 }
 
-String str_from(char* str, size_t len) {
+string_t str_from(char* str, size_t len) {
     char* ptr = malloc(len + 1);
 
     strncpy(ptr, str, len);
     ptr[len] = '\0';
 
-    return (String){
+    return (string_t){
         .capacity = len,
         .len = len,
         .str = ptr,
     };
 }
 
-void free_str(String* str) {
+void free_str(string_t* str) {
     if (str) {
         free(str->str);
     }
@@ -39,7 +39,7 @@ void free_str(String* str) {
     str = NULL;
 }
 
-char get_str(String* str, size_t index) {
+char get_str(string_t* str, size_t index) {
     if (index >= str->capacity) {
         return 0;
     } else {
@@ -47,7 +47,7 @@ char get_str(String* str, size_t index) {
     }
 }
 
-char first_str(String* str) {
+char first_str(string_t* str) {
     if (str->len == 0) {
         return 0;
     } else {
@@ -55,7 +55,7 @@ char first_str(String* str) {
     }
 }
 
-char last_str(String* str) {
+char last_str(string_t* str) {
     if (str->len == 0) {
         return 0;
     } else {
@@ -63,9 +63,9 @@ char last_str(String* str) {
     }
 }
 
-String clone_str(String* str) { return str_from(str->str, str->len); }
+string_t clone_str(string_t* str) { return str_from(str->str, str->len); }
 
-void push_str(String* str, char c) {
+void push_str(string_t* str, char c) {
     assert(str != NULL);
 
     str->str[str->len] = c;
@@ -76,7 +76,7 @@ void push_str(String* str, char c) {
     str->str[str->len] = '\0';
 }
 
-void push_str_str(String* str, char* s, size_t len) {
+void push_str_str(string_t* str, char* s, size_t len) {
     assert(str != NULL);
     assert(s != NULL);
 
@@ -93,14 +93,14 @@ void push_str_str(String* str, char* s, size_t len) {
     str->str[str->len] = '\0';
 }
 
-void set_str(String* str, char c, size_t index) {
+void set_str(string_t* str, char c, size_t index) {
     assert(str != NULL);
     assert(index < str->len);
 
     str->str[index] = c;
 }
 
-char pop_str(String* str) {
+char pop_str(string_t* str) {
     assert(str != NULL);
 
     if (str->len == 0) {
@@ -112,9 +112,9 @@ char pop_str(String* str) {
     }
 }
 
-void clear_str(String* str) { str->len = 0; }
+void clear_str(string_t* str) { str->len = 0; }
 
-void insert_str(String* str, char c, size_t index) {
+void insert_str(string_t* str, char c, size_t index) {
     assert(str != NULL);
     assert(index <= str->len);
 
@@ -134,7 +134,7 @@ void insert_str(String* str, char c, size_t index) {
     src_ptr[index] = c;
 }
 
-void remove_str(String* str, size_t index) {
+void remove_str(string_t* str, size_t index) {
     assert(str != NULL);
 
     if (index < str->len) {
@@ -147,7 +147,7 @@ void remove_str(String* str, size_t index) {
     }
 }
 
-void resize_str(String* str, size_t len) {
+void resize_str(string_t* str, size_t len) {
     assert(str != NULL);
 
     if (len == str->len) {
@@ -161,7 +161,7 @@ void resize_str(String* str, size_t len) {
     str->len = MIN(str->len, len);
 }
 
-void reserve_str(String* str, size_t chars) {
+void reserve_str(string_t* str, size_t chars) {
     assert(str != NULL);
 
     if (chars <= str->len) {
@@ -173,7 +173,7 @@ void reserve_str(String* str, size_t chars) {
     resize_str(str, chars);
 }
 
-String reverse_str(String str) {
+string_t reverse_str(string_t str) {
     char* ptr = str.str;
 
     for (size_t i = 0; i < str.len / 2; ++i) {
@@ -195,7 +195,7 @@ char* reverse_str_str(char* str, size_t len) {
     return str;
 }
 
-void print_str(String* str) {
+void print_str(string_t* str) {
     assert(str != NULL);
 
     printf("\"");
@@ -213,14 +213,14 @@ void print_str(String* str) {
     printf("\"");
 }
 
-void debug_str(String* str) {
+void debug_str(string_t* str) {
     assert(str != NULL);
 
-    printf("String {    \n    capacity: %zu\n    len: %zu\n    ptr: %p\n}\n", str->capacity,
+    printf("string_t {    \n    capacity: %zu\n    len: %zu\n    ptr: %p\n}\n", str->capacity,
            str->len, str->str);
 }
 
-static void __grow_str(String* str) {
+static void __grow_str(string_t* str) {
     if (str->len >= str->capacity) {
         size_t new_capacity = (str->capacity + 1) * 2;
 
@@ -234,18 +234,18 @@ static void __grow_str(String* str) {
     }
 }
 
-StrIter iter_from_str(String* str) {
+str_iter_t iter_from_str(string_t* str) {
     assert(str != NULL);
 
     char* end = str->str + (str->len - 1) * sizeof(char);
 
-    return (StrIter){
+    return (str_iter_t){
         .ptr = str->str,
         .end = end,
     };
 }
 
-char str_iter_peek(StrIter* iter) {
+char str_iter_peek(str_iter_t* iter) {
     assert(iter != NULL);
 
     if (iter->ptr + 1 <= iter->end) {
@@ -255,7 +255,7 @@ char str_iter_peek(StrIter* iter) {
     }
 }
 
-char str_iter_next(StrIter* iter) {
+char str_iter_next(str_iter_t* iter) {
     assert(iter != NULL);
 
     if (iter->ptr <= iter->end) {
@@ -269,7 +269,7 @@ char str_iter_next(StrIter* iter) {
     }
 }
 
-void str_iter_skip(StrIter* iter, size_t skip) {
+void str_iter_skip(str_iter_t* iter, size_t skip) {
     assert(iter != NULL);
 
     if (iter->ptr + skip <= iter->end) {
@@ -279,7 +279,7 @@ void str_iter_skip(StrIter* iter, size_t skip) {
     }
 }
 
-void str_iter_skip_whitespace(StrIter* iter) {
+void str_iter_skip_whitespace(str_iter_t* iter) {
     char curr;
 
     while (isspace(curr = str_iter_next(iter))) {

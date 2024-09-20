@@ -6,6 +6,6 @@ typedef struct {
     double* char_map;
     // len should be 30 * 30
     double* bigram_map;
-} Weights;
+} weights_t;
 
 #endif

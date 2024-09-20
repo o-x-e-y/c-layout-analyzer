@@ -17,7 +17,7 @@ typedef struct {
 analyzer_t new_analyzer(data_t* data);
 void free_analyzer(analyzer_t* analyzer);
 
-Vec load_layouts_from_path(analyzer_t* analyzer, char* path);
+vec_t load_layouts_from_path(analyzer_t* analyzer, char* path);
 
 double sfbs(analyzer_t* analyzer, layout_t* layout);
 double sfs(analyzer_t* analyzer, layout_t* layout);
@@ -32,7 +32,7 @@ double sfs(analyzer_t* analyzer, layout_t* layout);
 //                 size_t l = finger_indices[i] + fingers[f];
 //                 size_t r = finger_indices[j] + fingers[f];
 
-//                 printf("    (PosPair) { .l = %zu, .r = %zu },\n", l, r);
+//                 printf("    (pos_pair_t) { .l = %zu, .r = %zu },\n", l, r);
 //             }
 //         }
 //         printf("\n");
@@ -46,7 +46,7 @@ double sfs(analyzer_t* analyzer, layout_t* layout);
 //                 size_t l = index_indices[i] + f;
 //                 size_t r = index_indices[j] + f;
 
-//                 printf("    (PosPair) { .l = %zu, .r = %zu },\n", l, r);
+//                 printf("    (pos_pair_t) { .l = %zu, .r = %zu },\n", l, r);
 //             }
 //         }
 //         printf("\n");

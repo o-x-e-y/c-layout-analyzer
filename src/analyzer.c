@@ -7,25 +7,25 @@
 
 #include "headers/vec.h"
 
-const static PosPair SFB_INDICES[48] = {
-    (PosPair){.l = 0, .r = 10},  (PosPair){.l = 0, .r = 20},  (PosPair){.l = 10, .r = 20},
-    (PosPair){.l = 1, .r = 11},  (PosPair){.l = 1, .r = 21},  (PosPair){.l = 11, .r = 21},
-    (PosPair){.l = 2, .r = 12},  (PosPair){.l = 2, .r = 22},  (PosPair){.l = 12, .r = 22},
-    (PosPair){.l = 7, .r = 17},  (PosPair){.l = 7, .r = 27},  (PosPair){.l = 17, .r = 27},
-    (PosPair){.l = 8, .r = 18},  (PosPair){.l = 8, .r = 28},  (PosPair){.l = 18, .r = 28},
-    (PosPair){.l = 9, .r = 19},  (PosPair){.l = 9, .r = 29},  (PosPair){.l = 19, .r = 29},
+const static pos_pair_t SFB_INDICES[48] = {
+    (pos_pair_t){.l = 0, .r = 10},  (pos_pair_t){.l = 0, .r = 20},  (pos_pair_t){.l = 10, .r = 20},
+    (pos_pair_t){.l = 1, .r = 11},  (pos_pair_t){.l = 1, .r = 21},  (pos_pair_t){.l = 11, .r = 21},
+    (pos_pair_t){.l = 2, .r = 12},  (pos_pair_t){.l = 2, .r = 22},  (pos_pair_t){.l = 12, .r = 22},
+    (pos_pair_t){.l = 7, .r = 17},  (pos_pair_t){.l = 7, .r = 27},  (pos_pair_t){.l = 17, .r = 27},
+    (pos_pair_t){.l = 8, .r = 18},  (pos_pair_t){.l = 8, .r = 28},  (pos_pair_t){.l = 18, .r = 28},
+    (pos_pair_t){.l = 9, .r = 19},  (pos_pair_t){.l = 9, .r = 29},  (pos_pair_t){.l = 19, .r = 29},
 
-    (PosPair){.l = 3, .r = 4},   (PosPair){.l = 3, .r = 13},  (PosPair){.l = 3, .r = 14},
-    (PosPair){.l = 3, .r = 23},  (PosPair){.l = 3, .r = 24},  (PosPair){.l = 4, .r = 13},
-    (PosPair){.l = 4, .r = 14},  (PosPair){.l = 4, .r = 23},  (PosPair){.l = 4, .r = 24},
-    (PosPair){.l = 13, .r = 14}, (PosPair){.l = 13, .r = 23}, (PosPair){.l = 13, .r = 24},
-    (PosPair){.l = 14, .r = 23}, (PosPair){.l = 14, .r = 24}, (PosPair){.l = 23, .r = 24},
+    (pos_pair_t){.l = 3, .r = 4},   (pos_pair_t){.l = 3, .r = 13},  (pos_pair_t){.l = 3, .r = 14},
+    (pos_pair_t){.l = 3, .r = 23},  (pos_pair_t){.l = 3, .r = 24},  (pos_pair_t){.l = 4, .r = 13},
+    (pos_pair_t){.l = 4, .r = 14},  (pos_pair_t){.l = 4, .r = 23},  (pos_pair_t){.l = 4, .r = 24},
+    (pos_pair_t){.l = 13, .r = 14}, (pos_pair_t){.l = 13, .r = 23}, (pos_pair_t){.l = 13, .r = 24},
+    (pos_pair_t){.l = 14, .r = 23}, (pos_pair_t){.l = 14, .r = 24}, (pos_pair_t){.l = 23, .r = 24},
 
-    (PosPair){.l = 5, .r = 6},   (PosPair){.l = 5, .r = 15},  (PosPair){.l = 5, .r = 16},
-    (PosPair){.l = 5, .r = 25},  (PosPair){.l = 5, .r = 26},  (PosPair){.l = 6, .r = 15},
-    (PosPair){.l = 6, .r = 16},  (PosPair){.l = 6, .r = 25},  (PosPair){.l = 6, .r = 26},
-    (PosPair){.l = 15, .r = 16}, (PosPair){.l = 15, .r = 25}, (PosPair){.l = 15, .r = 26},
-    (PosPair){.l = 16, .r = 25}, (PosPair){.l = 16, .r = 26}, (PosPair){.l = 25, .r = 26},
+    (pos_pair_t){.l = 5, .r = 6},   (pos_pair_t){.l = 5, .r = 15},  (pos_pair_t){.l = 5, .r = 16},
+    (pos_pair_t){.l = 5, .r = 25},  (pos_pair_t){.l = 5, .r = 26},  (pos_pair_t){.l = 6, .r = 15},
+    (pos_pair_t){.l = 6, .r = 16},  (pos_pair_t){.l = 6, .r = 25},  (pos_pair_t){.l = 6, .r = 26},
+    (pos_pair_t){.l = 15, .r = 16}, (pos_pair_t){.l = 15, .r = 25}, (pos_pair_t){.l = 15, .r = 26},
+    (pos_pair_t){.l = 16, .r = 25}, (pos_pair_t){.l = 16, .r = 26}, (pos_pair_t){.l = 25, .r = 26},
 };
 
 analyzer_t new_analyzer(data_t* data) {
@@ -50,10 +50,10 @@ int __cmp_layouts(const void* layout1, const void* layout2) {
     return (int)((((layout_t*)layout2)->score - ((layout_t*)layout1)->score) * 10000000.0);
 }
 
-Vec load_layouts_from_path(analyzer_t* analyzer, char* path) {
+vec_t load_layouts_from_path(analyzer_t* analyzer, char* path) {
     DIR* dir;
     struct dirent* ent;
-    Vec layouts = new_vec(10, sizeof(layout_t));
+    vec_t layouts = new_vec(10, sizeof(layout_t));
 
     size_t path_len = strlen(path);
 
@@ -62,7 +62,7 @@ Vec load_layouts_from_path(analyzer_t* analyzer, char* path) {
             int name_len = strlen(ent->d_name);
             if (name_len < 3 || strncmp(&ent->d_name[name_len - 3], ".md", 3) == 0) continue;
 
-            String full_path = str_from(path, path_len);
+            string_t full_path = str_from(path, path_len);
 
             if (last_str(&full_path) != '\\' && last_str(&full_path) != '/') {
                 push_str(&full_path, '/');
@@ -92,7 +92,7 @@ double sfbs(analyzer_t* analyzer, layout_t* layout) {
     double total = 0;
 
     for (size_t i = 0; i < 48; ++i) {
-        PosPair p = SFB_INDICES[i];
+        pos_pair_t p = SFB_INDICES[i];
         char a = layout->matrix[p.l];
         char b = layout->matrix[p.r];
 
@@ -107,7 +107,7 @@ double sfs(analyzer_t* analyzer, layout_t* layout) {
     double total = 0;
 
     for (size_t i = 0; i < 48; ++i) {
-        PosPair p = SFB_INDICES[i];
+        pos_pair_t p = SFB_INDICES[i];
         char a = layout->matrix[p.l];
         char b = layout->matrix[p.r];
 

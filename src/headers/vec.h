@@ -9,44 +9,44 @@ typedef struct {
     size_t elem_size;
 
     void* ptr;
-} Vec;
+} vec_t;
 
 typedef struct {
     size_t elem_size;
 
     void* ptr;
     void* end;
-} Iter;
+} vec_iter_t;
 
-Vec new_vec(size_t capacity, size_t elem_size);
-void free_vec(Vec* vec, void elem_destructor(void*));
+vec_t new_vec(size_t capacity, size_t elem_size);
+void free_vec(vec_t* vec, void elem_destructor(void*));
 
-void* get_vec(Vec* vec, size_t index);
-void* first_vec(Vec* vec);
-void* last_vec(Vec* vec);
+void* get_vec(vec_t* vec, size_t index);
+void* first_vec(vec_t* vec);
+void* last_vec(vec_t* vec);
 
-Vec clone_vec(Vec* vec);
-size_t byte_capacity_vec(Vec* vec);
+vec_t clone_vec(vec_t* vec);
+size_t byte_capacity_vec(vec_t* vec);
 
-void push_vec(Vec* vec, void* elem);
-void set_vec(Vec* vec, void* elem, size_t index);
-void* pop_vec(Vec* vec);
-void clear_vec(Vec* vec);
+void push_vec(vec_t* vec, void* elem);
+void set_vec(vec_t* vec, void* elem, size_t index);
+void* pop_vec(vec_t* vec);
+void clear_vec(vec_t* vec);
 
-void insert_vec(Vec* vec, void* elem, size_t index);
-void remove_vec(Vec* vec, size_t index);
-void append_vec(Vec* vec, Vec* app);
+void insert_vec(vec_t* vec, void* elem, size_t index);
+void remove_vec(vec_t* vec, size_t index);
+void append_vec(vec_t* vec, vec_t* app);
 
-void reserve_vec(Vec* vec, size_t elements);
-void resize_vec(Vec* vec, size_t len);
+void reserve_vec(vec_t* vec, size_t elements);
+void resize_vec(vec_t* vec, size_t len);
 
-void print_vec(Vec* vec, void print_elem(void*));
-void debug_vec(Vec* vec);
+void print_vec(vec_t* vec, void print_elem(void*));
+void debug_vec(vec_t* vec);
 
-Iter iter_from_vec(Vec* vec);
-void* iter_peek(Iter* iter);
-void* iter_next(Iter* iter);
+vec_iter_t iter_from_vec(vec_t* vec);
+void* iter_peek(vec_iter_t* iter);
+void* iter_next(vec_iter_t* iter);
 
-void map_vec(Vec* vec, void map(void*));
+void map_vec(vec_t* vec, void map(void*));
 
 #endif

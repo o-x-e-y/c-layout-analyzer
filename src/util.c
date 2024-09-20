@@ -3,13 +3,13 @@
 #include <assert.h>
 #include <stdio.h>
 
-String read_file(char* path) {
+string_t read_file(char* path) {
     assert(path != NULL);
 
     FILE* fp = fopen(path, "r");
 
     if (fp) {
-        String res = new_str(100);
+        string_t res = new_str(100);
 
         char c;
         while ((c = fgetc(fp)) != -1) {

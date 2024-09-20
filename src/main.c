@@ -13,7 +13,7 @@ int main(int argc, char** argv) {
 
     // char* path = "./corpora/monkeyracer.txt";
 
-    // String mr = read_file(path);
+    // string_t mr = read_file(path);
 
     // printf("len of file: %zu bytes\n", mr.len);
 
@@ -28,9 +28,9 @@ int main(int argc, char** argv) {
 
     // analyzer_t analyzer = new_analyzer(&d);
 
-    // Vec layouts = load_layouts_from_path(&analyzer, "./layouts/");
+    // vec_t layouts = load_layouts_from_path(&analyzer, "./layouts/");
 
-    // Iter layout_iter = iter_from_vec(&layouts);
+    // vec_iter_t layout_iter = iter_from_vec(&layouts);
 
     // layout_t* layout;
 

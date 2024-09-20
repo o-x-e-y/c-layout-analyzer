@@ -12,8 +12,8 @@ static const size_t K = 0x517cc1b727220a95;
 
 static void __add_to_hash(size_t* hash, size_t val) { *hash = ((*hash << 5) ^ val) * K; }
 
-HashMap new_hashmap(size_t key_size, size_t value_size) {
-    HashMap res;
+hash_map_t new_hashmap(size_t key_size, size_t value_size) {
+    hash_map_t res;
 
     res.key_size = key_size;
     res.value_size = value_size;
@@ -52,7 +52,7 @@ size_t hash_hashmap(void* bytes, size_t len) {
     return hash;
 }
 
-void insert_hashmap(HashMap* m, void* key, void* value) {
+void insert_hashmap(hash_map_t* m, void* key, void* value) {
     assert(key != NULL);
 
     size_t index = hash_hashmap(key, m->store.elem_size) % m->store.capacity;
@@ -68,7 +68,7 @@ void insert_hashmap(HashMap* m, void* key, void* value) {
     m->len++;
 }
 
-void print_hashmap(HashMap* m, void print_key(void*), void print_value(void*)) {
+void print_hashmap(hash_map_t* m, void print_key(void*), void print_value(void*)) {
     assert(m != NULL);
 
     printf("{");
@@ -94,4 +94,4 @@ void print_hashmap(HashMap* m, void print_key(void*), void print_value(void*)) {
     printf("{\n");
 }
 
-void debug_hashmap(HashMap* m);
+void debug_hashmap(hash_map_t* m);

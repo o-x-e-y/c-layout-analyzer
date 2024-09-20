@@ -7,10 +7,10 @@
 
 #include "headers/util.h"
 
-static void __grow_vec(Vec* vec);
+static void __grow_vec(vec_t* vec);
 
-Vec new_vec(size_t item_capacity, size_t elem_size) {
-    Vec res = (Vec){
+vec_t new_vec(size_t item_capacity, size_t elem_size) {
+    vec_t res = (vec_t){
         .capacity = item_capacity,
         .elem_size = elem_size,
         .len = 0,
@@ -20,7 +20,7 @@ Vec new_vec(size_t item_capacity, size_t elem_size) {
     return res;
 }
 
-void free_vec(Vec* vec, void elem_destructor(void*)) {
+void free_vec(vec_t* vec, void elem_destructor(void*)) {
     if (vec != NULL) {
         if (elem_destructor != NULL) {
             for (void* ptr = vec->ptr; ptr < vec->ptr + vec->capacity; ptr += vec->elem_size) {
@@ -32,7 +32,7 @@ void free_vec(Vec* vec, void elem_destructor(void*)) {
     }
 }
 
-void* get_vec(Vec* vec, size_t index) {
+void* get_vec(vec_t* vec, size_t index) {
     if (index >= vec->capacity) {
         return NULL;
     } else {
@@ -41,7 +41,7 @@ void* get_vec(Vec* vec, size_t index) {
     }
 }
 
-void* first_vec(Vec* vec) {
+void* first_vec(vec_t* vec) {
     if (vec->len == 0) {
         return NULL;
     } else {
@@ -49,7 +49,7 @@ void* first_vec(Vec* vec) {
     }
 }
 
-void* last_vec(Vec* vec) {
+void* last_vec(vec_t* vec) {
     if (vec->len == 0) {
         return NULL;
     } else {
@@ -57,8 +57,8 @@ void* last_vec(Vec* vec) {
     }
 }
 
-Vec clone_vec(Vec* vec) {
-    Vec res = new_vec(vec->capacity, vec->elem_size);
+vec_t clone_vec(vec_t* vec) {
+    vec_t res = new_vec(vec->capacity, vec->elem_size);
 
     res.len = vec->len;
 
@@ -67,9 +67,9 @@ Vec clone_vec(Vec* vec) {
     return res;
 }
 
-size_t byte_capacity_vec(Vec* vec) { return vec->capacity * vec->elem_size; }
+size_t byte_capacity_vec(vec_t* vec) { return vec->capacity * vec->elem_size; }
 
-void push_vec(Vec* vec, void* elem) {
+void push_vec(vec_t* vec, void* elem) {
     assert(vec != NULL);
     assert(elem != NULL);
 
@@ -82,7 +82,7 @@ void push_vec(Vec* vec, void* elem) {
     vec->len++;
 }
 
-void set_vec(Vec* vec, void* elem, size_t index) {
+void set_vec(vec_t* vec, void* elem, size_t index) {
     assert(vec != NULL);
     assert(elem != NULL);
     assert(index < vec->len);
@@ -93,7 +93,7 @@ void set_vec(Vec* vec, void* elem, size_t index) {
     memcpy(dst_ptr, elem, vec->elem_size);
 }
 
-void* pop_vec(Vec* vec) {
+void* pop_vec(vec_t* vec) {
     assert(vec != NULL);
 
     if (vec->len == 0) {
@@ -106,9 +106,9 @@ void* pop_vec(Vec* vec) {
     }
 }
 
-void clear_vec(Vec* vec) { vec->len = 0; }
+void clear_vec(vec_t* vec) { vec->len = 0; }
 
-void insert_vec(Vec* vec, void* elem, size_t index) {
+void insert_vec(vec_t* vec, void* elem, size_t index) {
     assert(vec != NULL);
     assert(elem != NULL);
     assert(index <= vec->len);
@@ -131,7 +131,7 @@ void insert_vec(Vec* vec, void* elem, size_t index) {
     memcpy(src_ptr, elem, vec->elem_size);
 }
 
-void remove_vec(Vec* vec, size_t index) {
+void remove_vec(vec_t* vec, size_t index) {
     assert(vec != NULL);
 
     if (index < vec->len) {
@@ -145,7 +145,7 @@ void remove_vec(Vec* vec, size_t index) {
     }
 }
 
-void append_vec(Vec* vec, Vec* app) {
+void append_vec(vec_t* vec, vec_t* app) {
     assert(vec != NULL);
     assert(app != NULL);
     assert(vec->elem_size == app->elem_size);
@@ -156,7 +156,7 @@ void append_vec(Vec* vec, Vec* app) {
     }
 }
 
-void resize_vec(Vec* vec, size_t len) {
+void resize_vec(vec_t* vec, size_t len) {
     assert(vec != NULL);
 
     if (len == vec->len) {
@@ -170,7 +170,7 @@ void resize_vec(Vec* vec, size_t len) {
     vec->len = MIN(vec->len, len);
 }
 
-void reserve_vec(Vec* vec, size_t elements) {
+void reserve_vec(vec_t* vec, size_t elements) {
     assert(vec != NULL);
 
     if (elements <= vec->len) {
@@ -182,7 +182,7 @@ void reserve_vec(Vec* vec, size_t elements) {
     resize_vec(vec, elements);
 }
 
-void print_vec(Vec* vec, void print_elem(void*)) {
+void print_vec(vec_t* vec, void print_elem(void*)) {
     assert(vec != NULL);
 
     printf("[");
@@ -201,14 +201,14 @@ void print_vec(Vec* vec, void print_elem(void*)) {
     printf("]");
 }
 
-void debug_vec(Vec* vec) {
+void debug_vec(vec_t* vec) {
     assert(vec != NULL);
 
-    printf("Vec {    \n    capacity: %zu\n    len: %zu\n    elem_size: %zu\n    ptr: %p\n}\n",
+    printf("vec_t {    \n    capacity: %zu\n    len: %zu\n    elem_size: %zu\n    ptr: %p\n}\n",
            vec->capacity, vec->len, vec->elem_size, vec->ptr);
 }
 
-static void __grow_vec(Vec* vec) {
+static void __grow_vec(vec_t* vec) {
     if (vec->len >= vec->capacity) {
         size_t new_capacity = (vec->capacity + 1) * 2;
 
@@ -217,19 +217,19 @@ static void __grow_vec(Vec* vec) {
     }
 }
 
-Iter iter_from_vec(Vec* vec) {
+vec_iter_t iter_from_vec(vec_t* vec) {
     assert(vec != NULL);
 
     void* end = vec->ptr + (vec->len - 1) * vec->elem_size;
 
-    return (Iter){
+    return (vec_iter_t){
         .elem_size = vec->elem_size,
         .ptr = vec->ptr,
         .end = end,
     };
 }
 
-void* iter_peek(Iter* iter) {
+void* iter_peek(vec_iter_t* iter) {
     assert(iter != NULL);
 
     if (iter->ptr <= iter->end) {
@@ -239,7 +239,7 @@ void* iter_peek(Iter* iter) {
     }
 }
 
-void* iter_next(Iter* iter) {
+void* iter_next(vec_iter_t* iter) {
     assert(iter != NULL);
 
     if (iter->ptr <= iter->end) {
@@ -253,10 +253,10 @@ void* iter_next(Iter* iter) {
     }
 }
 
-void map_vec(Vec* vec, void map(void*)) {
+void map_vec(vec_t* vec, void map(void*)) {
     assert(vec != NULL);
 
-    Iter iter = iter_from_vec(vec);
+    vec_iter_t iter = iter_from_vec(vec);
 
     while (iter_next(&iter)) {
         map(iter.ptr);

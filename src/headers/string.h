@@ -8,46 +8,46 @@ typedef struct {
     size_t capacity;
 
     char* str;
-} String;
+} string_t;
 
 typedef struct {
     char* ptr;
     char* end;
-} StrIter;
+} str_iter_t;
 
-String new_str(size_t capacity);
-String str_from(char* str, size_t len);
-void free_str(String* str);
+string_t new_str(size_t capacity);
+string_t str_from(char* str, size_t len);
+void free_str(string_t* str);
 
-char get_str(String* str, size_t index);
-char first_str(String* str);
-char last_str(String* str);
+char get_str(string_t* str, size_t index);
+char first_str(string_t* str);
+char last_str(string_t* str);
 
-String clone_str(String* str);
+string_t clone_str(string_t* str);
 
-void push_str(String* str, char c);
-void push_str_str(String* str, char* s, size_t len);
-char pop_str(String* str);
+void push_str(string_t* str, char c);
+void push_str_str(string_t* str, char* s, size_t len);
+char pop_str(string_t* str);
 
-void set_str(String* str, char s, size_t index);
+void set_str(string_t* str, char s, size_t index);
 
-void insert_str(String* str, char s, size_t index);
-void remove_str(String* str, size_t index);
-void clear_str(String* str);
+void insert_str(string_t* str, char s, size_t index);
+void remove_str(string_t* str, size_t index);
+void clear_str(string_t* str);
 
-void reserve_str(String* str, size_t sents);
-void resize_str(String* str, size_t len);
+void reserve_str(string_t* str, size_t sents);
+void resize_str(string_t* str, size_t len);
 
-String reverse_str(String str);
+string_t reverse_str(string_t str);
 char* reverse_str_str(char* str, size_t len);
 
-void print_str(String* str);
-void debug_str(String* str);
+void print_str(string_t* str);
+void debug_str(string_t* str);
 
-StrIter iter_from_str(String* str);
-char str_iter_peek(StrIter* iter);
-char str_iter_next(StrIter* iter);
-void str_iter_skip(StrIter* iter, size_t skip);
-void str_iter_skip_whitespace(StrIter* iter);
+str_iter_t iter_from_str(string_t* str);
+char str_iter_peek(str_iter_t* iter);
+char str_iter_next(str_iter_t* iter);
+void str_iter_skip(str_iter_t* iter, size_t skip);
+void str_iter_skip_whitespace(str_iter_t* iter);
 
 #endif

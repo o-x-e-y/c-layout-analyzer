@@ -15,7 +15,7 @@ typedef struct {
 typedef struct {
     size_t l;
     size_t r;
-} PosPair;
+} pos_pair_t;
 
 layout_t new_layout(char chars[LAYOUT_CHARS], char* name);
 layout_t load_layout(char* path);
