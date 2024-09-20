@@ -14,7 +14,7 @@ Vec new_vec(size_t item_capacity, size_t elem_size) {
         .capacity = item_capacity,
         .elem_size = elem_size,
         .len = 0,
-        .ptr = malloc(item_capacity * elem_size),
+        .ptr = calloc(item_capacity, elem_size),
     };
 
     return res;

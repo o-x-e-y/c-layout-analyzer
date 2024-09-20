@@ -69,11 +69,11 @@ Vec load_layouts_from_path(analyzer_t* analyzer, char* path) {
             }
             push_str_str(&full_path, ent->d_name, strlen(ent->d_name));
 
-            // layout_t layout = load_layout(full_path.str);
-            // layout.name[name_len - 3] = '\0';
-            // layout.score = sfbs(analyzer, &layout);
+            layout_t layout = load_layout(full_path.str);
+            layout.name[name_len - 3] = '\0';
+            layout.score = sfbs(analyzer, &layout);
 
-            // push_vec(&layouts, &layout);
+            push_vec(&layouts, &layout);
         }
 
         closedir(dir);
