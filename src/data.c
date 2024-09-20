@@ -7,7 +7,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "headers/string.h"
+#include "headers/alloc_string.h"
 #include "headers/util.h"
 
 data_t generate_data(char* str, char* include_chars, char* language) {

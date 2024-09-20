@@ -1,7 +1,6 @@
 #include "headers/cli.h"
 
 #include "headers/analyzer.h"
-#include "string.h"
 
 void print_usage(const char* program_name);
 void print_layout_info(analyzer_t* analyzer, char* path);

@@ -1,4 +1,4 @@
-#include "headers/string.h"
+#include "headers/alloc_string.h"
 
 #include <assert.h>
 #include <ctype.h>
