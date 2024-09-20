@@ -1,7 +1,7 @@
 #ifndef UTIL_H
 #define UTIL_H
 
-#include "string.h"
+#include "alloc_string.h"
 
 #define MAX(v1, v2) v1 > v2 ? v1 : v2
 #define MIN(v1, v2) v1 < v2 ? v1 : v2

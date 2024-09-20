@@ -25,7 +25,7 @@ debug: $(src_files)
 
 .PHONY: release
 release: $(src_files)
-	cc $(release-flags) $(src_files) -o $(exec-path) && $(exec-path) $(filter-out r,$(MAKECMDGOALS))
+	cc $(release-flags) $(src_files) -o $(exec-path) && $(exec-path) $(ARGS)
 
 %:
 	@:
