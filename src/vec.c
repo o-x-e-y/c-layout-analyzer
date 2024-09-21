@@ -198,7 +198,7 @@ void print_vec(vec_t* vec, void print_elem(void*)) {
         (*print_elem)(elem);
     }
 
-    printf("]");
+    printf("]\n");
 }
 
 void debug_vec(vec_t* vec) {

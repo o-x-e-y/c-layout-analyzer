@@ -18,7 +18,8 @@ string_t new_str(size_t item_capacity) {
     };
 }
 
-string_t str_from(char* str, size_t len) {
+string_t str_from(char* str) {
+    size_t len = strlen(str);
     char* ptr = malloc(len + 1);
 
     strncpy(ptr, str, len);
@@ -63,7 +64,18 @@ char last_str(string_t* str) {
     }
 }
 
-string_t clone_str(string_t* str) { return str_from(str->str, str->len); }
+string_t clone_str(string_t* str) {
+    char* ptr = malloc(str->len + 1);
+
+    strncpy(ptr, str->str, str->len);
+    ptr[str->len] = '\0';
+
+    return (string_t){
+        .capacity = str->len,
+        .len = str->len,
+        .str = ptr,
+    };
+}
 
 void push_str(string_t* str, char c) {
     assert(str != NULL);
@@ -234,10 +246,23 @@ static void __grow_str(string_t* str) {
     }
 }
 
-str_iter_t iter_from_str(string_t* str) {
+str_iter_t iter_from_cstr(char* str) {
     assert(str != NULL);
 
-    char* end = str->str + (str->len - 1) * sizeof(char);
+    size_t len = strlen(str);
+
+    char* end = str + (len * sizeof(char));
+
+    return (str_iter_t){
+        .ptr = str,
+        .end = end,
+    };
+}
+
+str_iter_t iter_from_str(const string_t* str) {
+    assert(str != NULL);
+
+    const char* end = str->str + (str->len - 1) * sizeof(char);
 
     return (str_iter_t){
         .ptr = str->str,
@@ -248,10 +273,20 @@ str_iter_t iter_from_str(string_t* str) {
 char str_iter_peek(str_iter_t* iter) {
     assert(iter != NULL);
 
-    if (iter->ptr + 1 <= iter->end) {
-        return iter->ptr[1];
+    if (iter->ptr <= iter->end) {
+        return *iter->ptr;
     } else {
-        return 0;
+        return '\0';
+    }
+}
+
+char str_iter_peek_n(str_iter_t* iter, size_t n) {
+    assert(iter != NULL);
+
+    if (iter->ptr + n <= iter->end) {
+        return *(iter->ptr + n);
+    } else {
+        return '\0';
     }
 }
 
@@ -265,7 +300,7 @@ char str_iter_next(str_iter_t* iter) {
 
         return tmp;
     } else {
-        return 0;
+        return '\0';
     }
 }
 
@@ -275,7 +310,7 @@ void str_iter_skip(str_iter_t* iter, size_t skip) {
     if (iter->ptr + skip <= iter->end) {
         iter->ptr += skip;
     } else {
-        iter->ptr = iter->end + 1;
+        iter->ptr = (char*)(iter->end + 1);
     }
 }
 

@@ -62,7 +62,7 @@ vec_t load_layouts_from_path(analyzer_t* analyzer, char* path) {
             int name_len = strlen(ent->d_name);
             if (name_len < 3 || strncmp(&ent->d_name[name_len - 3], ".md", 3) == 0) continue;
 
-            string_t full_path = str_from(path, path_len);
+            string_t full_path = str_from(path);
 
             if (last_str(&full_path) != '\\' && last_str(&full_path) != '/') {
                 push_str(&full_path, '/');

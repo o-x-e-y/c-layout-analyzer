@@ -12,11 +12,11 @@ typedef struct {
 
 typedef struct {
     char* ptr;
-    char* end;
+    const char* end;
 } str_iter_t;
 
 string_t new_str(size_t capacity);
-string_t str_from(char* str, size_t len);
+string_t str_from(char* str);
 void free_str(string_t* str);
 
 char get_str(string_t* str, size_t index);
@@ -44,8 +44,10 @@ char* reverse_str_str(char* str, size_t len);
 void print_str(string_t* str);
 void debug_str(string_t* str);
 
-str_iter_t iter_from_str(string_t* str);
+str_iter_t iter_from_cstr(char* str);
+str_iter_t iter_from_str(const string_t* str);
 char str_iter_peek(str_iter_t* iter);
+char str_iter_peek_n(str_iter_t* iter, size_t n);
 char str_iter_next(str_iter_t* iter);
 void str_iter_skip(str_iter_t* iter, size_t skip);
 void str_iter_skip_whitespace(str_iter_t* iter);

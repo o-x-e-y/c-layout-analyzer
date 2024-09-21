@@ -3,6 +3,8 @@
 
 #include <stddef.h>
 
+#define CAST(operation, type) (*(type*)operation)
+
 typedef struct {
     size_t len;
     size_t capacity;

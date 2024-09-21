@@ -158,9 +158,9 @@ void save_data(data_t* data, char* folder) {
 
     string_t path;
     if (folder == NULL) {
-        path = str_from("./", strlen("./"));
+        path = str_from("./");
     } else {
-        path = str_from(folder, strlen(folder));
+        path = str_from(folder);
     }
 
     if (last_str(&path) != '\\' && last_str(&path) != '/') {
